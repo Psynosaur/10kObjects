@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -10,8 +11,9 @@ using BenchmarkDotNet.Jobs;
 using static System.String;
 using static System.Threading.Tasks.Parallel;
 
-namespace Mobii
+namespace TenKObjects
 {
+    // Do not change this class... okay, make something else like it then...? 
     public class Work
     {
         public Work()
@@ -172,19 +174,21 @@ namespace Mobii
     {
         private const int ObjectTotal = 10000;
 
+        static string path = Directory.GetCurrentDirectory();
+        
         // private static readonly List<Work> WorkList = new List<Work>(ObjectTotal);
 
         // This list will help us not call Console.WriteLine very many times . . .
         // private static readonly List<string> Output = new List<string>(ObjectTotal);
-        [DllImport(@"C:\git\10kObjects\10kObjects\bin\Release\netcoreapp3.1\sortandsum.dll",
+        [DllImport(@"C:\git\10kObjects\10kObjects\bin\sortandsum.dll",
             CallingConvention = CallingConvention.StdCall)]
         private static extern uint stringSortOut(StringBuilder lpBuffer, uint uiSize, string szReturnString);
 
-        [DllImport(@"C:\git\10kObjects\10kObjects\bin\Release\netcoreapp3.1\sortandsum.dll",
+        [DllImport(@"C:\git\10kObjects\10kObjects\bin\sortandsum.dll",
             CallingConvention = CallingConvention.StdCall, EntryPoint = "sumOfDigits")]
         public static extern int sumOfDigitsDll(string str);
 
-        [DllImport(@"C:\git\10kObjects\10kObjects\bin\Release\netcoreapp3.1\sortandsum.dll",
+        [DllImport(@"C:\git\10kObjects\10kObjects\bin\sortandsum.dll",
             CallingConvention = CallingConvention.StdCall, EntryPoint = "sumOfDigits")]
         public static extern int sumOfDigitsCharDll(char[] str);
 
@@ -427,7 +431,7 @@ namespace Mobii
             });
         }
 
-        public void Implementation17(int n)
+        public void Implementation16(int n)
         {
             For(0, n, _ =>
             {
@@ -440,7 +444,7 @@ namespace Mobii
             });
         }
 
-        public unsafe void Implementation18(int n)
+        public unsafe void Implementation17(int n)
         {
             For(0, n, _ =>
             {
@@ -455,7 +459,7 @@ namespace Mobii
             });
         }
 
-        public unsafe void Implementation19(int n)
+        public unsafe void Implementation18(int n)
         {
             For(0, n, _ =>
             {
@@ -470,7 +474,7 @@ namespace Mobii
             });
         }
 
-        public unsafe void Implementation20(int n)
+        public unsafe void Implementation19(int n)
         {
             For(0, n, _ =>
             {
@@ -484,7 +488,7 @@ namespace Mobii
             });
         }
 
-        public void Implementation21(int n)
+        public void Implementation20(int n)
         {
             var rangeSize = 2500;
             if (n == 1) rangeSize = 1;
@@ -507,7 +511,7 @@ namespace Mobii
             });
         }
 
-        public void Implementation22(int n)
+        public void Implementation21(int n)
         {
             For(0, n, _ =>
             {
@@ -519,7 +523,7 @@ namespace Mobii
             });
         }
 
-        public void Implementation23(int n)
+        public void Implementation22(int n)
         {
             var rangeSize = 2500;
             if (n == 1) rangeSize = 1;
@@ -540,7 +544,7 @@ namespace Mobii
             });
         }
 
-        public void Implementation24()
+        public void Implementation23()
         {
             WorkStructSpanByte wsArr;
             // Step 1 - Order the Id, and set on Step1Result property
@@ -549,7 +553,7 @@ namespace Mobii
             wsArr.Step2Result = SumOfDigitsGuidBytes(wsArr.Step1Result);
         }
 
-        public void Implementation25(int n)
+        public void Implementation24(int n)
         {
             if(n < 100) return;
             For(0, 5000, _ =>
@@ -561,12 +565,12 @@ namespace Mobii
             });
         }
 
-        public void Implementation26(int n)
+        public void Implementation25(int n)
         {
             For(0, n, _ => { new WorkStructSpanByteConstr(0); });
         }
 
-        public void Implementation27(int n)
+        public void Implementation26(int n)
         {
             For(0, n, _ =>
             {
@@ -576,7 +580,7 @@ namespace Mobii
             });
         }
 
-        public void Implementation28(WorkStruct[] list)
+        public void Implementation27(WorkStruct[] list)
         {
             ForEach(list, item =>
             {
@@ -586,7 +590,7 @@ namespace Mobii
             });
         }
 
-        public void Implementation29(WorkStructByteArrayConstr[] list)
+        public void Implementation28(WorkStructByteArrayConstr[] list)
         {
             ForEach(list, item =>
             {
@@ -595,7 +599,7 @@ namespace Mobii
             });
         }
 
-        public void Implementation30(WorkStructByteArrayConstr[] list)
+        public void Implementation29(WorkStructByteArrayConstr[] list)
         {
             switch (list.Length)
             {
@@ -623,7 +627,7 @@ namespace Mobii
             }
         }
 
-        public void Implementation31(WorkStructByteArrayConstr[] list)
+        public void Implementation30(WorkStructByteArrayConstr[] list)
         {
         }
 

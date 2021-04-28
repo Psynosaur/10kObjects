@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
 using static System.Threading.Tasks.Parallel;
 
-namespace Mobii
+namespace TenKObjects
 {
     [MemoryDiagnoser]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
@@ -17,8 +18,8 @@ namespace Mobii
         private WorkStruct[] _list;
         private WorkStructByteArrayConstr[] _list2;
 
-        [Params(1,100)] public int N;
-
+        [Params(1,100, 1000, 10000)] public int N;
+        
         [Benchmark]
         public void Implementation1()
         {
@@ -101,11 +102,12 @@ namespace Mobii
         {
             Implimentor.Implementation15(N);
         }
-        // [Benchmark]
-        // public void Implementation16()
-        // {
-        //     Implimentor.Implementation16();
-        // }
+        
+        [Benchmark]
+        public void Implementation16()
+        {
+            Implimentor.Implementation16(N);
+        }
         [Benchmark]
         public void Implementation17()
         {
@@ -131,21 +133,21 @@ namespace Mobii
         {
             Implimentor.Implementation21(N);
         }
+        
         [Benchmark]
         public void Implementation22()
         {
             Implimentor.Implementation22(N);
         }
-        
         [Benchmark]
         public void Implementation23()
         {
-            Implimentor.Implementation23(N);
+            Implimentor.Implementation23();
         }
         [Benchmark]
         public void Implementation24()
         {
-            Implimentor.Implementation24();
+            Implimentor.Implementation24(N);
         }
         [Benchmark]
         public void Implementation25()
@@ -157,11 +159,6 @@ namespace Mobii
         {
             Implimentor.Implementation26(N);
         }
-        [Benchmark]
-        public void Implementation27()
-        {
-            Implimentor.Implementation27(N);
-        }
         
         [GlobalSetup]
         public void Setup()
@@ -171,9 +168,15 @@ namespace Mobii
         }
         
         [Benchmark]
+        public void Implementation27()
+        {
+            Implimentor.Implementation27(_list);
+        }
+        
+        [Benchmark]
         public void Implementation28()
         {
-            Implimentor.Implementation28(_list);
+            Implimentor.Implementation28(_list2);
         }
         
         [Benchmark]
@@ -182,16 +185,11 @@ namespace Mobii
             Implimentor.Implementation29(_list2);
         }
         
-        [Benchmark]
-        public void Implementation30()
-        {
-            Implimentor.Implementation30(_list2);
-        }
         
         // [Benchmark]
-        // public void Implementation31()
+        // public void Implementation30()
         // {
-        //     Implimentor.Implementation31(_list2);
+        //     Implimentor.Implementation30(_list2);
         // }
         private static WorkStruct[] WorkStructArrayMaker(int n, out WorkStruct[] arr)
         {
@@ -214,5 +212,23 @@ namespace Mobii
 
             return arr;
         }
+        
+        // [Benchmark]
+        // [ArgumentsSource(nameof(ObjectsEnumerable3))]
+        // public void Implementation31(WorkStructByteArrayConstr[] arr)
+        // {
+        //     Implimentor.Implementation31(arr);
+        // }
+        
+        // public IEnumerable<object> ObjectsEnumerable3()
+        // {
+        //     var arr = new WorkStructByteArrayConstr[10000];
+        //     For(0, 10000, i =>
+        //     {
+        //         arr[i] = new WorkStructByteArrayConstr(0);
+        //     });
+        //
+        //     yield return arr.ToList();
+        // }
     }
 }

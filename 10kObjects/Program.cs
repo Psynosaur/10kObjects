@@ -5,7 +5,7 @@ using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Validators;
 
-namespace Mobii
+namespace TenKObjects
 {
     // Untouchable code as per documentation . . .
 
