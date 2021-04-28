@@ -142,7 +142,7 @@ namespace TenKObjects
         [Benchmark]
         public void Implementation23()
         {
-            Implimentor.Implementation23();
+            Implimentor.Implementation23(N);
         }
         [Benchmark]
         public void Implementation24()
@@ -154,23 +154,22 @@ namespace TenKObjects
         {
             Implimentor.Implementation25(N);
         }
-        [Benchmark]
-        public void Implementation26()
-        {
-            Implimentor.Implementation26(N);
-        }
-        
         [GlobalSetup]
         public void Setup()
         {
-            _list = WorkStructArrayMaker(N, out var arr);
-            _list2 = ObjectsEnumerable2(N);
+            _list = WorkStructArrayMaker(N);
+            _list2 = WorkStructArrayMaker2(N);
         }
-        
+        [Benchmark]
+        public void Implementation26()
+        {
+            Implimentor.Implementation26(_list);
+        }
+
         [Benchmark]
         public void Implementation27()
         {
-            Implimentor.Implementation27(_list);
+            Implimentor.Implementation27(_list2);
         }
         
         [Benchmark]
@@ -179,11 +178,7 @@ namespace TenKObjects
             Implimentor.Implementation28(_list2);
         }
         
-        [Benchmark]
-        public void Implementation29()
-        {
-            Implimentor.Implementation29(_list2);
-        }
+        
         
         
         // [Benchmark]
@@ -191,9 +186,9 @@ namespace TenKObjects
         // {
         //     Implimentor.Implementation30(_list2);
         // }
-        private static WorkStruct[] WorkStructArrayMaker(int n, out WorkStruct[] arr)
+        private static WorkStruct[] WorkStructArrayMaker(int n)
         {
-            arr = new WorkStruct[n];
+            var arr = new WorkStruct[n];
             for (int i = 0; i < n; i++)
             {
                 arr[i] = new WorkStruct {Id = Guid.NewGuid().ToString()};
@@ -202,7 +197,7 @@ namespace TenKObjects
             return arr;
         }
 
-        private static WorkStructByteArrayConstr[] ObjectsEnumerable2(int n)
+        private static WorkStructByteArrayConstr[] WorkStructArrayMaker2(int n)
         {
             WorkStructByteArrayConstr[] arr = new WorkStructByteArrayConstr[n];
             For(0, n, i =>

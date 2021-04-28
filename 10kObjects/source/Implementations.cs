@@ -175,7 +175,7 @@ namespace TenKObjects
         private const int ObjectTotal = 10000;
 
         static string path = Directory.GetCurrentDirectory();
-        
+
         // private static readonly List<Work> WorkList = new List<Work>(ObjectTotal);
 
         // This list will help us not call Console.WriteLine very many times . . .
@@ -543,34 +543,47 @@ namespace TenKObjects
                 });
             });
         }
-
-        public void Implementation23()
+        
+        public void Implementation23(int n)
         {
-            WorkStructSpanByte wsArr;
-            // Step 1 - Order the Id, and set on Step1Result property
-            wsArr.Step1Result = SortGuidBytes(Guid.NewGuid());
-            // Step 2 - Sum all numbers in the Id, and set on Step2Result property
-            wsArr.Step2Result = SumOfDigitsGuidBytes(wsArr.Step1Result);
-        }
+            int outer = 0;
+            var inner = 0;
 
-        public void Implementation24(int n)
-        {
-            if(n < 100) return;
-            For(0, 5000, _ =>
+            switch (n)
             {
-                for (int j = 0; j < 2; j++)
+                case 1:
+                    outer = n;
+                    inner = n;
+                    break;
+                case 10:
+                    outer = n / 2;
+                    inner = n / 5;
+                    break;
+                case 100:
+                    outer = n / 2;
+                    inner = n / 5;
+                    break;
+                case 1000:
+                    outer = n / 2;
+                    inner = n / 5;
+                    break;
+            }
+
+            For(0, outer, _ =>
+            {
+                for (int j = 0; j < inner; j++)
                 {
                     new WorkStructSpanByteConstr(0);
                 }
             });
         }
 
-        public void Implementation25(int n)
+        public void Implementation24(int n)
         {
             For(0, n, _ => { new WorkStructSpanByteConstr(0); });
         }
 
-        public void Implementation26(int n)
+        public void Implementation25(int n)
         {
             For(0, n, _ =>
             {
@@ -580,7 +593,7 @@ namespace TenKObjects
             });
         }
 
-        public void Implementation27(WorkStruct[] list)
+        public void Implementation26(WorkStruct[] list)
         {
             ForEach(list, item =>
             {
@@ -590,7 +603,7 @@ namespace TenKObjects
             });
         }
 
-        public void Implementation28(WorkStructByteArrayConstr[] list)
+        public void Implementation27(WorkStructByteArrayConstr[] list)
         {
             ForEach(list, item =>
             {
@@ -599,7 +612,7 @@ namespace TenKObjects
             });
         }
 
-        public void Implementation29(WorkStructByteArrayConstr[] list)
+        public void Implementation28(WorkStructByteArrayConstr[] list)
         {
             switch (list.Length)
             {
@@ -627,7 +640,7 @@ namespace TenKObjects
             }
         }
 
-        public void Implementation30(WorkStructByteArrayConstr[] list)
+        public void Implementation29(WorkStructByteArrayConstr[] list)
         {
         }
 
