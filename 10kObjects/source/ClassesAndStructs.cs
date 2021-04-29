@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace TenKObjects
 {
-    public class Obj
+    public static class ClassesAndStructs
     {
         // Do not change this class...
         // okay, make something else like it then...? 
@@ -67,22 +67,22 @@ namespace TenKObjects
         {
             internal WorkStructSpanByteConstr(int mandatory) : this()
             {
-                Id = Guid.NewGuid();
-                Step1Result = SortGuidBytes(Id);
+                Guid id = Guid.NewGuid();
+                Step1Result = SortGuidBytes(id);
                 Step2Result = SumOfDigitsGuidBytes(Step1Result);
             }
 
-            internal Span<byte> SortGuidBytes(Guid id)
+            private static Span<byte> SortGuidBytes(Guid id)
             {
-                var b = id.ToByteArray();
+                byte[] b = id.ToByteArray();
                 Array.Sort(b);
                 return b;
             }
 
-            internal static int SumOfDigitsGuidBytes(in Span<byte> bytes, int sum = 0)
+            private static int SumOfDigitsGuidBytes(in Span<byte> bytes, int sum = 0)
             {
                 // iterate over each char in guid string representation, add digit value if char is between 1-9 
-                foreach (var c in new Guid(bytes).ToString())
+                foreach (char c in new Guid(bytes).ToString())
                 {
                     switch (c >= 49)
                     {
@@ -94,8 +94,6 @@ namespace TenKObjects
 
                 return sum;
             }
-
-            internal Guid Id;
 
             // Guid 16 byte 128 bit unsigned integer representation
             internal Span<byte> Step1Result;
@@ -147,10 +145,10 @@ namespace TenKObjects
         public ref struct WorkStructByteArray
         {
             // Guid 16 byte 128 bit unsigned integer representation
-            public byte[] Step1Result;
+            internal byte[] Step1Result;
 
             // Sum of string representation of above Guid bytes
-            public int Step2Result;
+            internal int Step2Result;
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]

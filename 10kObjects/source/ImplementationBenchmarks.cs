@@ -5,7 +5,9 @@ using System.Collections.Immutable;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
+using static TenKObjects.ImplementationsSingleRun;
 using static System.Threading.Tasks.Parallel;
+using static TenKObjects.ClassesAndStructs;
 
 namespace TenKObjects
 {
@@ -16,154 +18,174 @@ namespace TenKObjects
     {
         // Original suite of implementations - they loop 10000 times ...
         // private static readonly Implementations Implimentor = new Implementations();
-        
-        // Second version after reading benchmarkdotnet setup guides.
-        private static readonly ImplementationsSingleRun Implimentor = new ImplementationsSingleRun();
-        private Obj.WorkStruct[] _list;
-        private Obj.WorkStructByteArrayConstr[] _list2;
 
+        // Second version after reading benchmarkdotnet setup guides.
+        // https://github.com/dotnet/performance/blob/main/docs/microbenchmark-design-guidelines.md
+        private static readonly ImplementationsSingleRun Implimentor = new ImplementationsSingleRun();
+
+        private WorkStruct[] _list;
+        private WorkStructByteArrayConstr[] _list2;
+        private Work _work;
         [Params(1)] public int N;
-        
+
         [Benchmark]
         public void Implementation1()
         {
             Implimentor.Implementation1(N);
         }
-        
+
         [Benchmark(Baseline = default)]
         public void Implementation2()
         {
             Implimentor.Implementation2(N);
         }
-        
+
         [Benchmark]
         public void Implementation3()
         {
             Implimentor.Implementation3(N);
         }
-        
+
         [Benchmark]
         public void Implementation4()
         {
             Implimentor.Implementation4(N);
         }
-        
+
         [Benchmark]
         public void Implementation5()
         {
             Implimentor.Implementation5(N);
         }
-        
+
         [Benchmark]
         public void Implementation6()
         {
             Implimentor.Implementation6(N);
         }
-        
+
         [Benchmark]
         public void Implementation7()
         {
             Implimentor.Implementation7(N);
         }
+
         [Benchmark]
         public void Implementation8()
         {
             Implimentor.Implementation8(N);
         }
+
         [Benchmark]
         public void Implementation9()
         {
             Implimentor.Implementation9(N);
         }
+
         [Benchmark]
         public void Implementation10()
         {
             Implimentor.Implementation10(N);
         }
-        
+
         [Benchmark]
         public void Implementation11()
         {
             Implimentor.Implementation11(N);
         }
+
         [Benchmark]
         public void Implementation12()
         {
             Implimentor.Implementation12(N);
         }
+
         [Benchmark]
         public void Implementation13()
         {
             Implimentor.Implementation13(N);
         }
+
         [Benchmark]
         public void Implementation14()
         {
             Implimentor.Implementation14(N);
         }
+
         [Benchmark]
         public void Implementation15()
         {
             Implimentor.Implementation15(N);
         }
-        
+
         [Benchmark]
         public void Implementation16()
         {
             Implimentor.Implementation16(N);
         }
+
         [Benchmark]
         public void Implementation17()
         {
             Implimentor.Implementation17(N);
         }
+
         [Benchmark]
         public void Implementation18()
         {
             Implimentor.Implementation18(N);
         }
+
         [Benchmark]
         public void Implementation19()
         {
             Implimentor.Implementation19(N);
         }
+
         [Benchmark]
         public void Implementation20()
         {
             Implimentor.Implementation20(N);
         }
+
         [Benchmark]
         public void Implementation21()
         {
             Implimentor.Implementation21(N);
         }
-        
+
         [Benchmark]
         public void Implementation22()
         {
             Implimentor.Implementation22(N);
         }
+
         [Benchmark]
         public void Implementation23()
         {
             Implimentor.Implementation23(N);
         }
+
         [Benchmark]
         public void Implementation24()
         {
             Implimentor.Implementation24(N);
         }
+
         [Benchmark]
         public void Implementation25()
         {
             Implimentor.Implementation25(N);
         }
+
         [GlobalSetup]
         public void Setup()
         {
             _list = WorkStructArrayMaker(N);
             _list2 = WorkStructArrayMaker2(N);
+            _work = new Work();
         }
+
         [Benchmark]
         public void Implementation26()
         {
@@ -175,58 +197,67 @@ namespace TenKObjects
         {
             Implimentor.Implementation27(_list2);
         }
-        
+
         [Benchmark]
         public void Implementation28()
         {
             Implimentor.Implementation28(_list2);
         }
+
         [Benchmark]
         public void Implementation29()
         {
             Implimentor.Implementation29(_list2);
         }
+
         [Benchmark]
         public void Implementation30()
         {
             Implimentor.Implementation30(_list2[0]);
         }
 
-        [GlobalCleanup]
+        [Benchmark]
+        public void Implementation31()
+        {
+            Implimentor.Implementation31(_work);
+        }
 
+        [GlobalCleanup]
         public void Clean()
         {
             _list = null;
             _list2 = null;
+            _work = null;
         }
-        
+
         // [Benchmark]
         // public void Implementation30()
         // {
         //     Implimentor.Implementation30(_list2);
         // }
-        private static Obj.WorkStruct[] WorkStructArrayMaker(int n)
+        private static WorkStruct[] WorkStructArrayMaker(int n)
         {
-            var arr = new Obj.WorkStruct[n];
+            var arr = new WorkStruct[n];
             for (int i = 0; i < n; i++)
             {
-                arr[i] = new Obj.WorkStruct {Id = Guid.NewGuid().ToString()};
+                arr[i] = new WorkStruct {Id = Guid.NewGuid().ToString()};
             }
 
             return arr;
         }
 
-        private static Obj.WorkStructByteArrayConstr[] WorkStructArrayMaker2(int n)
+        private static WorkStructByteArrayConstr[] WorkStructArrayMaker2(int n)
         {
-            Obj.WorkStructByteArrayConstr[] arr = new Obj.WorkStructByteArrayConstr[n];
-            For(0, n, i =>
-            {
-                arr[i] = new Obj.WorkStructByteArrayConstr(0);
-            });
+            WorkStructByteArrayConstr[] arr = new WorkStructByteArrayConstr[n];
+            For(0, n, i => { arr[i] = new WorkStructByteArrayConstr(0); });
 
             return arr;
         }
-        
+        // Array as params, but I get Failed to execute benchmark - exception was: 'Parameter count mismatch.'
+
+        // System.InvalidOperationException: Method may only be called on a Type for which Type.IsGenericParameter is true.
+        // at System.RuntimeType.get_DeclaringMethod()
+
         // [Benchmark]
         // [ArgumentsSource(nameof(ObjectsEnumerable3))]
         // public void Implementation31(WorkStructByteArrayConstr[] arr)
