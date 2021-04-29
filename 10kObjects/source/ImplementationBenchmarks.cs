@@ -248,7 +248,7 @@ namespace TenKObjects
         {
             Implimentor.Implementation35(_list9);
         }
-        
+
         [Benchmark]
         public void Implementation36()
         {
@@ -324,10 +324,10 @@ namespace TenKObjects
         // at System.RuntimeType.get_DeclaringMethod()
 
         // [Benchmark]
-        // [ArgumentsSource(nameof(ObjectsEnumerable3))]
-        // public void Implementation31(WorkStructByteArrayConstr[] arr)
+        // [ArgumentsSource(nameof(ObjectsEnumerable66))]
+        // public void Implementation66(WorkStructByteArrayConstr[] arr)
         // {
-        //     Implimentor.Implementation28(arr);
+        //     Implimentor.Implementation66(arr);
         // }
         //
         // public IEnumerable<object> ObjectsEnumerable3()
