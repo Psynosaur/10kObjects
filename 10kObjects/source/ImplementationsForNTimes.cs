@@ -449,217 +449,42 @@ namespace TenKObjects
 
         public void Implementation29(WorkStructByteArrayConstr[] list)
         {
-        }
-
-
-        public static Span<byte> SortGuidBytes(Guid bytes)
-        {
-            var b = bytes.ToByteArray();
-            Array.Sort(b);
-            return b;
-        }
-
-        public static byte[] SortGuidBytesOutBytes(Guid bytes)
-        {
-            var b = bytes.ToByteArray();
-            Array.Sort(b);
-            return b;
-        }
-
-        private static byte[] SortByteArray(byte[] buffer)
-        {
-            Array.Sort(buffer);
-            return buffer;
-        }
-
-        private static char[] SortCharArray(char[] buffer)
-        {
-            Array.Sort(buffer);
-            return buffer;
-        }
-
-        private static Span<char> SortSpanChar(Span<char> buffer, char temp = '0')
-        {
-            int i, j;
-            int n = buffer.Length;
-
-            for (i = 0; i < n - 1; i++)
+            switch (list.Length)
             {
-                for (j = i + 1; j < n; j++)
+                case 1:
+                    list[0].Step1Result = SortGuidBytesOutBytes(list[0].Id);
+                    list[0].Step2Result = SumOfDigitsGuid2(list[0].Id);
+                    return;
+                case 10:
                 {
-                    if (buffer[i] > buffer[j])
+                    for (int i = 0; i < list.Length; i++)
                     {
-                        temp = buffer[i];
-                        buffer[i] = buffer[j];
-                        buffer[j] = temp;
+                        list[i].Step1Result = SortGuidBytesOutBytes(list[i].Id);
+                        list[i].Step2Result = SumOfDigitsGuid2(list[i].Id);
                     }
+
+                    return;
                 }
+                default:
+                    ForEach(list, item =>
+                    {
+                        item.Step1Result = SortGuidBytesOutBytes(item.Id);
+                        item.Step2Result = SumOfDigitsGuid2(item.Id);
+                    });
+                    break;
             }
-
-            return buffer;
+            
         }
-
-        private static int SumOfDigitsForEach(ReadOnlySpan<char> str, int sum = 0)
+        // They would not work since 30 and 31 where made with SingleRuns in mind
+        public void Implementation30(WorkStructByteArrayConstr item)
         {
-            foreach (char c in str)
-            {
-                if (c >= 49 && c <= 57)
-                {
-                    sum += c - '0';
-                }
-            }
-
-            return sum;
+            
         }
-
-        private static int SumOfDigitsSwitch(ReadOnlySpan<char> str, int sum = 0)
+        public void Implementation31(Work item)
         {
-            foreach (char c in str)
-            {
-                switch (c >= 49)
-                {
-                    case true when c <= 57:
-                        sum += c - '0';
-                        break;
-                }
-            }
-
-            return sum;
-        }
-
-        private static int SumOfDigitsFor(ReadOnlySpan<char> str, int sum = 0)
-        {
-            for (var index = str.Length - 1; index >= 0; index--)
-            {
-                char c = str[index];
-                if (c >= 49 && c <= 57)
-                {
-                    sum += c - '0';
-                }
-            }
-
-            return sum;
-        }
-
-        private static int SumOfDigitsForSwitch(in ReadOnlySpan<char> str, int sum = 0)
-        {
-            for (var index = str.Length - 1; index >= 0; index--)
-            {
-                char c = str[index];
-                switch (c >= 49)
-                {
-                    case true when c <= 57:
-                        sum += c - '0';
-                        break;
-                }
-            }
-
-            return sum;
+           
         }
 
 
-        private static int SumOfDigitsForSwitchSpan(in ReadOnlySpan<char> str, Span<int> sum)
-        {
-            return SumOfDigitsForSwitchSpan(str, sum, str.Length - 1);
-        }
-
-        private static int SumOfDigitsForSwitchSpan(in ReadOnlySpan<char> str, Span<int> sum, int num)
-        {
-            while (num >= 0)
-            {
-                var c = str[num];
-                if (c >= '1' && c <= '9')
-                {
-                    sum[0] += c - 48;
-                }
-
-                num--;
-            }
-
-            return sum[0];
-        }
-
-        private static int SumOfDigitsGuidBytes(in Span<byte> bytes, int sum = 0)
-        {
-            // iterate over each char in guid string representation, add digit value if char is between 1-9 
-            foreach (var c in new Guid(bytes).ToString())
-            {
-                switch (c >= 49)
-                {
-                    case true when c <= 57:
-                        sum += c - 48;
-                        break;
-                }
-            }
-
-            return sum;
-        }
-
-        private static int SumOfDigitsGuid(in Guid bytes, int sum = 0)
-        {
-            // iterate over each char in guid string representation, add digit value if char is between 1-9 
-            foreach (var c in bytes.ToString())
-            {
-                switch (c >= 49)
-                {
-                    case true when c <= 57:
-                        sum += c - 48;
-                        break;
-                }
-            }
-
-            return sum;
-        }
-
-        private static int SumOfDigitsGuid2(in Guid bytes, int sum = 0)
-        {
-            // iterate over each char in guid string representation, add digit value if char is between 1-9 
-            int cnt = bytes.ToString().Length;
-            string str = bytes.ToString();
-            for (var i = 0; i < cnt; i++)
-            {
-                var c = str[i];
-                switch (c >= 49)
-                {
-                    case true when c <= 57:
-                        sum += c - 48;
-                        break;
-                }
-            }
-
-            return sum;
-        }
-
-        private static int SumOfDigitsForEachSwitchSpan(in ReadOnlySpan<char> str, Span<int> sum)
-        {
-            foreach (char c in str)
-            {
-                switch (c >= 49)
-                {
-                    case true when c <= 57:
-                        sum[0] += c - '0';
-                        break;
-                }
-            }
-
-            return sum[0];
-        }
-
-
-        private static int SumOfDigitsForSwitch(ReadOnlySpan<byte> str, int sum = 0)
-        {
-            for (var index = str.Length - 1; index >= 0; index--)
-            {
-                byte c = str[index];
-                switch (c >= 49)
-                {
-                    case true when c <= 57:
-                        sum += c - '0';
-                        break;
-                }
-            }
-
-            return sum;
-        }
     }
 }
