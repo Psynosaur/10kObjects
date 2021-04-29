@@ -546,8 +546,8 @@ namespace TenKObjects
         
         public void Implementation23(int n)
         {
-            int outer = 0;
-            var inner = 0;
+            int outer = 5000;
+            var inner = 2;
 
             switch (n)
             {
@@ -793,6 +793,24 @@ namespace TenKObjects
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
             foreach (var c in bytes.ToString())
             {
+                switch (c >= 49)
+                {
+                    case true when c <= 57:
+                        sum += c - 48;
+                        break;
+                }
+            }
+
+            return sum;
+        }
+        private static int SumOfDigitsGuid2(in Guid bytes, int sum = 0)
+        {
+            // iterate over each char in guid string representation, add digit value if char is between 1-9 
+            int cnt = bytes.ToString().Length;
+            string str = bytes.ToString();
+            for (var i = 0; i < cnt; i++)
+            {
+                var c = str[i];
                 switch (c >= 49)
                 {
                     case true when c <= 57:
