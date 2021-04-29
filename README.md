@@ -33,6 +33,13 @@ Simple right? . . . ¯\\\_(ツ)\_/¯
 
     // * Summary *
 
+    ======> Seems it could go faster
+    |           Method | N |     Mean |    Error |   StdDev | Rank | Gen 0 | Gen 1 | Gen 2 | Allocated |
+    |----------------- |-- |---------:|---------:|---------:|-----:|------:|------:|------:|----------:|
+    | Implementation38 | 1 | 35.66 ns | 0.488 ns | 0.457 ns |    1 |     - |     - |     - |         - |
+    | Implementation37 | 1 | 41.45 ns | 0.532 ns | 0.497 ns |    2 |     - |     - |     - |         - |
+
+
     BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19042
     AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
     .NET Core SDK=5.0.202
