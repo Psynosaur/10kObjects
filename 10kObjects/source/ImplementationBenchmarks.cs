@@ -16,7 +16,8 @@ namespace TenKObjects
         private static readonly ImplementationsForNTimes Implimentor = new ImplementationsForNTimes();
         [Params(1)] public int N;
         private WorkStruct[] _list;
-        private WorkStructByteArrayConstr[] _list2,_list3, _list4,_list5,_list6,_list7,_list8,_list9,_list10, _list11;
+        private WorkStructByteArrayConstr[] _list2,_list3, _list4,_list5,_list6,_list7,_list8,_list9,_list10;
+        private WorkStructByteArrayConstrFinal[] _list11;
         private Work[] _work;
 
         [GlobalSetup]
@@ -33,7 +34,7 @@ namespace TenKObjects
             _list8 = WorkStructArrayMaker2(N);
             _list9 = WorkStructArrayMaker2(N);
             _list10 = WorkStructArrayMaker2(N);
-            _list11 = WorkStructArrayMaker2(N);
+            _list11 = WorkStructArrayMaker3(N);
             _work = WorkClassArrayMaker(N);
         }
 
@@ -252,11 +253,11 @@ namespace TenKObjects
         {
             Implimentor.Implementation36(_list10);
         }
-        // [Benchmark]
-        // public void Implementation37()
-        // {
-        //     Implimentor.Implementation37(_list11);
-        // }
+        [Benchmark]
+        public void Implementation37()
+        {
+            Implimentor.Implementation37(_list11);
+        }
         
 
         private static WorkStruct[] WorkStructArrayMaker(int n)
@@ -277,6 +278,14 @@ namespace TenKObjects
 
             return arr;
         }
+        
+        private static WorkStructByteArrayConstrFinal[] WorkStructArrayMaker3(int n)
+        {
+            WorkStructByteArrayConstrFinal[] arr = new WorkStructByteArrayConstrFinal[n];
+            For(0, n, i => { arr[i] = new WorkStructByteArrayConstrFinal(0); });
+
+            return arr;
+        }
 
         private static Work[] WorkClassArrayMaker(int n)
         {
@@ -292,6 +301,15 @@ namespace TenKObjects
         {
             _list = null;
             _list2 = null;
+            _list3 = null;
+            _list4 = null;
+            _list5 = null;
+            _list6 = null;
+            _list7 = null;
+            _list8 = null;
+            _list9 = null;
+            _list10 = null;
+            _list11 = null;
             _work = null;
         }
         // Array as params, but I get Failed to execute benchmark - exception was: 'Parameter count mismatch.'

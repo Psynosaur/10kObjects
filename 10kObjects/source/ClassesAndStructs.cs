@@ -21,16 +21,6 @@ namespace TenKObjects
             public string Step2Result { get; set; }
         }
 
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        public struct WorkStructCharArray
-        {
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 36)]
-            public char[] Step1Result;
-
-            [MarshalAs(UnmanagedType.U4, SizeConst = 3)]
-            public int Step2Result;
-        }
-
         // works as array
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct WorkStruct
@@ -44,15 +34,63 @@ namespace TenKObjects
             [MarshalAs(UnmanagedType.U4, SizeConst = 3)]
             public int Step2Result;
         }
-
+        
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        public ref struct WorkStructSpanChar
+        public ref struct WorkStructByteArray
         {
-            public Span<char> Step1Result;
+            // Guid 16 byte 128 bit unsigned integer representation
+            internal byte[] Step1Result;
+
+            // Sum of string representation of above Guid bytes
+            internal int Step2Result;
+        }
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public struct WorkStructByteArrayConstr
+        {
+            internal WorkStructByteArrayConstr(int mandatory)
+            {
+                Id = Guid.NewGuid();
+                Step1Result = null;
+                Step2Result = mandatory;
+            }
+
+            internal Guid Id;
+
+            // Guid 16 byte 128 bit unsigned integer representation
+            internal byte[] Step1Result;
+
+            // Sum of string representation of above Guid bytes
+            internal int Step2Result;
+        }
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public struct WorkStructByteArrayConstrFinal
+        {
+            internal WorkStructByteArrayConstrFinal(int mandatory)
+            {
+                Id = Guid.NewGuid().ToByteArray();
+                Step1Result = null;
+                Step2Result = mandatory;
+            }
+
+            internal byte[] Id;
+
+            // Guid 16 byte 128 bit unsigned integer representation
+            internal byte[] Step1Result;
+
+            // Sum of string representation of above Guid bytes
+            internal int Step2Result;
+        }
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public struct WorkStructCharArray
+        {
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 36)]
+            public char[] Step1Result;
+
+            [MarshalAs(UnmanagedType.U4, SizeConst = 3)]
             public int Step2Result;
         }
 
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+       [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public ref struct WorkStructSpanByte
         {
             // Guid 16 byte 128 bit unsigned integer representation
@@ -120,36 +158,13 @@ namespace TenKObjects
             // Sum of string representation of above Guid bytes
             internal int Step2Result;
         }
-
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        public struct WorkStructByteArrayConstr
+        public ref struct WorkStructSpanChar
         {
-            internal WorkStructByteArrayConstr(int mandatory)
-            {
-                Id = Guid.NewGuid();
-                Step1Result = null;
-                Step2Result = mandatory;
-            }
-
-            internal Guid Id;
-
-            // Guid 16 byte 128 bit unsigned integer representation
-            internal byte[] Step1Result;
-
-            // Sum of string representation of above Guid bytes
-            internal int Step2Result;
+            public Span<char> Step1Result;
+            public int Step2Result;
         }
-
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        public ref struct WorkStructByteArray
-        {
-            // Guid 16 byte 128 bit unsigned integer representation
-            internal byte[] Step1Result;
-
-            // Sum of string representation of above Guid bytes
-            internal int Step2Result;
-        }
+        
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct WorkStructStatic

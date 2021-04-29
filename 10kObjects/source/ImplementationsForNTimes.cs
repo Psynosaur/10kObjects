@@ -929,5 +929,28 @@ namespace TenKObjects
                 }
             });
         }
+        
+        public unsafe void Implementation37(WorkStructByteArrayConstrFinal[] list)
+        {
+            if (list.Length == 1)
+            {
+                fixed (byte* dataPtr = &list[0].Id[0])
+                {
+                    list[0].Step1Result = SortByteArray(list[0].Id);
+                    list[0].Step2Result = SumOfDigitsGuidPeter4Decompiled(dataPtr);
+                }
+
+                return;
+            }
+
+            ForEach(list, item =>
+            {
+                fixed (byte* dataPtr = &item.Id[0])
+                {
+                    item.Step1Result = SortByteArray(item.Id);
+                    item.Step2Result = SumOfDigitsGuidPeter4Decompiled(dataPtr);
+                }
+            });
+        }
     }
 }
