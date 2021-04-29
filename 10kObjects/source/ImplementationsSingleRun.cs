@@ -310,8 +310,54 @@ namespace TenKObjects
             item.Step1Result = new Guid(SortGuidBytesOutBytes(item.Id)).ToString();
             item.Step2Result = SumOfDigitsGuid(item.Id).ToString();
         }
-
-
+        public void Implementation32(WorkStructByteArrayConstr item)
+        {
+            byte[] b = item.Id.ToByteArray();
+            item.Step1Result = SortByteArray(b);
+            byte[] c = item.Step1Result;
+            item.Step2Result = SumOfDigitsGuidBytes(c);
+        }
+        
+        public unsafe void Implementation33(WorkStructByteArrayConstr[] list)
+        {
+            byte[] data = list[0].Id.ToByteArray();
+            fixed(byte* dataPtr = &data[0])
+            {
+                list[0].Step1Result = SortByteArray(data);
+                list[0].Step2Result = SumOfDigitsGuidPeter3(dataPtr);
+            }
+        }
+        
+        public unsafe void Implementation34(WorkStructByteArrayConstr[] list)
+        {
+            byte[] data = list[0].Id.ToByteArray();
+            fixed(byte* dataPtr = &data[0])
+            {
+                list[0].Step1Result = SortByteArray(data);
+                list[0].Step2Result = SumOfDigitsGuidPeter3Decompiled(dataPtr);
+            }
+        }
+        public unsafe void Implementation35(WorkStructByteArrayConstr[] list)
+        {
+            byte[] data = list[0].Id.ToByteArray();
+            fixed(byte* dataPtr = &data[0])
+            {
+                list[0].Step1Result = SortByteArray(data);
+                list[0].Step2Result = SumOfDigitsGuidPeter4(dataPtr);
+            }
+            
+        }
+        
+        public unsafe void Implementation36(WorkStructByteArrayConstr[] list)
+        {
+            byte[] data = list[0].Id.ToByteArray();
+            fixed(byte* dataPtr = &data[0])
+            {
+                list[0].Step1Result = SortByteArray(data);
+                list[0].Step2Result = SumOfDigitsGuidPeter4Decompiled(dataPtr);
+            }
+            
+        }
         
     }
 }
