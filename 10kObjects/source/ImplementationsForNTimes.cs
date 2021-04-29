@@ -838,7 +838,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &data[0])
                 {
                     list[0].Step1Result = SortByteArray(data);
-                    list[0].Step2Result = SumOfDigitsGuidPeter3(dataPtr);
+                    list[0].Step2Result = SumOfDigitsGuidP3(dataPtr);
                 }
 
                 return;
@@ -850,7 +850,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &data[0])
                 {
                     item.Step1Result = SortByteArray(data);
-                    item.Step2Result = SumOfDigitsGuidPeter3(dataPtr);
+                    item.Step2Result = SumOfDigitsGuidP3(dataPtr);
                 }
             });
         }
@@ -863,7 +863,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &data[0])
                 {
                     list[0].Step1Result = SortByteArray(data);
-                    list[0].Step2Result = SumOfDigitsGuidPeter3Decompiled(dataPtr);
+                    list[0].Step2Result = SumOfDigitsGuidP3Decompiled(dataPtr);
                 }
 
                 return;
@@ -875,7 +875,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &data[0])
                 {
                     item.Step1Result = SortByteArray(data);
-                    item.Step2Result = SumOfDigitsGuidPeter3Decompiled(dataPtr);
+                    item.Step2Result = SumOfDigitsGuidP3Decompiled(dataPtr);
                 }
             });
         }
@@ -888,7 +888,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &data[0])
                 {
                     list[0].Step1Result = SortByteArray(data);
-                    list[0].Step2Result = SumOfDigitsGuidPeter4(dataPtr);
+                    list[0].Step2Result = SumOfDigitsGuidP4(dataPtr);
                 }
 
                 return;
@@ -900,7 +900,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &data[0])
                 {
                     item.Step1Result = SortByteArray(data);
-                    item.Step2Result = SumOfDigitsGuidPeter4(dataPtr);
+                    item.Step2Result = SumOfDigitsGuidP4(dataPtr);
                 }
             });
         }
@@ -913,7 +913,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &data[0])
                 {
                     list[0].Step1Result = SortByteArray(data);
-                    list[0].Step2Result = SumOfDigitsGuidPeter4Decompiled(dataPtr);
+                    list[0].Step2Result = SumOfDigitsGuidP4Decompiled(dataPtr);
                 }
 
                 return;
@@ -925,7 +925,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &data[0])
                 {
                     item.Step1Result = SortByteArray(data);
-                    item.Step2Result = SumOfDigitsGuidPeter4Decompiled(dataPtr);
+                    item.Step2Result = SumOfDigitsGuidP4Decompiled(dataPtr);
                 }
             });
         }
@@ -937,7 +937,7 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &list[0].Id[0])
                 {
                     list[0].Step1Result = SortByteArray(list[0].Id);
-                    list[0].Step2Result = SumOfDigitsGuidPeter4Decompiled(dataPtr);
+                    list[0].Step2Result = SumOfDigitsGuidP4Decompiled(dataPtr);
                 }
 
                 return;
@@ -948,7 +948,30 @@ namespace TenKObjects
                 fixed (byte* dataPtr = &item.Id[0])
                 {
                     item.Step1Result = SortByteArray(item.Id);
-                    item.Step2Result = SumOfDigitsGuidPeter4Decompiled(dataPtr);
+                    item.Step2Result = SumOfDigitsGuidP4Decompiled(dataPtr);
+                }
+            });
+        }
+        
+        public unsafe void Implementation38(WorkStructByteArrayConstrFinal[] list)
+        {
+            if (list.Length == 1)
+            {
+                fixed (byte* dataPtr = &list[0].Id[0])
+                {
+                    list[0].Step1Result = SortByteArray(list[0].Id);
+                    list[0].Step2Result = SumOfDigitsGuidP3(dataPtr);
+                }
+
+                return;
+            }
+
+            ForEach(list, item =>
+            {
+                fixed (byte* dataPtr = &item.Id[0])
+                {
+                    item.Step1Result = SortByteArray(item.Id);
+                    item.Step2Result = SumOfDigitsGuidP3(dataPtr);
                 }
             });
         }

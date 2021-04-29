@@ -17,7 +17,7 @@ namespace TenKObjects
         [Params(1)] public int N;
         private WorkStruct[] _list;
         private WorkStructByteArrayConstr[] _list2,_list3, _list4,_list5,_list6,_list7,_list8,_list9,_list10;
-        private WorkStructByteArrayConstrFinal[] _list11;
+        private WorkStructByteArrayConstrFinal[] _list11, _list12;
         private Work[] _work;
 
         [GlobalSetup]
@@ -35,6 +35,7 @@ namespace TenKObjects
             _list9 = WorkStructArrayMaker2(N);
             _list10 = WorkStructArrayMaker2(N);
             _list11 = WorkStructArrayMaker3(N);
+            _list12 = WorkStructArrayMaker3(N);
             _work = WorkClassArrayMaker(N);
         }
 
@@ -247,7 +248,7 @@ namespace TenKObjects
         {
             Implimentor.Implementation35(_list9);
         }
-
+        
         [Benchmark]
         public void Implementation36()
         {
@@ -258,7 +259,11 @@ namespace TenKObjects
         {
             Implimentor.Implementation37(_list11);
         }
-        
+        [Benchmark]
+        public void Implementation38()
+        {
+            Implimentor.Implementation38(_list12);
+        }
 
         private static WorkStruct[] WorkStructArrayMaker(int n)
         {
@@ -310,6 +315,7 @@ namespace TenKObjects
             _list9 = null;
             _list10 = null;
             _list11 = null;
+            _list12 = null;
             _work = null;
         }
         // Array as params, but I get Failed to execute benchmark - exception was: 'Parameter count mismatch.'

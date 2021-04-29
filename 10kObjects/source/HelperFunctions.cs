@@ -246,7 +246,7 @@ namespace TenKObjects
         }
 
         // I phoned a friend, and he gave me the following few functions :D
-        internal static unsafe int SumOfDigitsGuidPeter(byte* bytes, int sum = 0)
+        internal static unsafe int SumOfDigitsGuidP(byte* bytes, int sum = 0)
         {
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
             for (int i = 0; i < 16; i++)
@@ -262,7 +262,7 @@ namespace TenKObjects
             return sum;
         }
 
-        internal static unsafe int SumOfDigitsGuidPeter2(byte* bytes, int sum = 0, int counter = 0)
+        internal static unsafe int SumOfDigitsGuidP2(byte* bytes, int sum = 0, int counter = 0)
         {
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
             for (int i = 0; i < 16; i++)
@@ -275,7 +275,7 @@ namespace TenKObjects
         }
 
         // Winner winner chicken dinner
-        internal static unsafe int SumOfDigitsGuidPeter3(byte* bytes, int sum = 0, int sum2 = 0)
+        internal static unsafe int SumOfDigitsGuidP3(byte* bytes, int sum = 0, int sum2 = 0)
         {
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
             for (int i = 0; i < 16; i++)
@@ -300,7 +300,7 @@ namespace TenKObjects
             return sum + sum2;
         }
 
-        internal static unsafe int SumOfDigitsGuidPeter3Decompiled(byte* bytes, int sum = 0b0, int sum2 = 0b0)
+        internal static unsafe int SumOfDigitsGuidP3Decompiled(byte* bytes, int sum = 0b0, int sum2 = 0b0)
         {
             int num = 0b0;
             while (num < 0b10000)
@@ -324,7 +324,7 @@ namespace TenKObjects
         }
 
         // Sorcery !? 
-        internal static unsafe int SumOfDigitsGuidPeter4(byte* bytes)
+        internal static unsafe int SumOfDigitsGuidP4(byte* bytes)
         {
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
             int highNibble = bytes[0x0] >> 0x4;
@@ -394,7 +394,7 @@ namespace TenKObjects
                 + lowNibblef - (lowNibblef < 0xA ? lowNibblef : 0x0);
         }
 
-        internal static unsafe int SumOfDigitsGuidPeter4Decompiled(byte* bytes)
+        internal static unsafe int SumOfDigitsGuidP4Decompiled(byte* bytes)
         {
             int num = *bytes >> 4;
             int num2 = *bytes & 0xF;

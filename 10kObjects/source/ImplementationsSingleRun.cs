@@ -324,7 +324,7 @@ namespace TenKObjects
             fixed(byte* dataPtr = &data[0])
             {
                 list[0].Step1Result = SortByteArray(data);
-                list[0].Step2Result = SumOfDigitsGuidPeter3(dataPtr);
+                list[0].Step2Result = SumOfDigitsGuidP3(dataPtr);
             }
         }
         
@@ -334,7 +334,7 @@ namespace TenKObjects
             fixed(byte* dataPtr = &data[0])
             {
                 list[0].Step1Result = SortByteArray(data);
-                list[0].Step2Result = SumOfDigitsGuidPeter3Decompiled(dataPtr);
+                list[0].Step2Result = SumOfDigitsGuidP3Decompiled(dataPtr);
             }
         }
         public unsafe void Implementation35(WorkStructByteArrayConstr[] list)
@@ -343,7 +343,7 @@ namespace TenKObjects
             fixed(byte* dataPtr = &data[0])
             {
                 list[0].Step1Result = SortByteArray(data);
-                list[0].Step2Result = SumOfDigitsGuidPeter4(dataPtr);
+                list[0].Step2Result = SumOfDigitsGuidP4(dataPtr);
             }
             
         }
@@ -354,7 +354,7 @@ namespace TenKObjects
             fixed(byte* dataPtr = &data[0])
             {
                 list[0].Step1Result = SortByteArray(data);
-                list[0].Step2Result = SumOfDigitsGuidPeter4Decompiled(dataPtr);
+                list[0].Step2Result = SumOfDigitsGuidP4Decompiled(dataPtr);
             }
             
         }
