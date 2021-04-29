@@ -13,163 +13,6 @@ using static System.Threading.Tasks.Parallel;
 
 namespace TenKObjects
 {
-    // Do not change this class... okay, make something else like it then...? 
-    public class Work
-    {
-        public Work()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; }
-
-        public string Step1Result { get; set; }
-
-        public string Step2Result { get; set; }
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct WorkStructCharArray
-    {
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 36)]
-        public char[] Step1Result;
-
-        [MarshalAs(UnmanagedType.U4, SizeConst = 3)]
-        public int Step2Result;
-    }
-
-    // works as array
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct WorkStruct
-    {
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 36)]
-        public string Id;
-
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 36)]
-        public string Step1Result;
-
-        [MarshalAs(UnmanagedType.U4, SizeConst = 3)]
-        public int Step2Result;
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public ref struct WorkStructSpanChar
-    {
-        public Span<char> Step1Result;
-        public int Step2Result;
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public ref struct WorkStructSpanByte
-    {
-        // Guid 16 byte 128 bit unsigned integer representation
-        public Span<byte> Step1Result;
-
-        // Sum of string representation of above Guid bytes
-        public int Step2Result;
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public ref struct WorkStructSpanByteConstr
-    {
-        internal WorkStructSpanByteConstr(int mandatory) : this()
-        {
-            Id = Guid.NewGuid();
-            Step1Result = SortGuidBytes(Id);
-            Step2Result = SumOfDigitsGuidBytes(Step1Result);
-        }
-
-        internal Span<byte> SortGuidBytes(Guid id)
-        {
-            var b = id.ToByteArray();
-            Array.Sort(b);
-            return b;
-        }
-
-        internal static int SumOfDigitsGuidBytes(in Span<byte> bytes, int sum = 0)
-        {
-            // iterate over each char in guid string representation, add digit value if char is between 1-9 
-            foreach (var c in new Guid(bytes).ToString())
-            {
-                switch (c >= 49)
-                {
-                    case true when c <= 57:
-                        sum += c - 48;
-                        break;
-                }
-            }
-
-            return sum;
-        }
-
-        internal Guid Id;
-
-        // Guid 16 byte 128 bit unsigned integer representation
-        internal Span<byte> Step1Result;
-
-        // Sum of string representation of above Guid bytes
-        internal int Step2Result;
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public ref struct WorkStructSpanByteConstr2
-    {
-        internal WorkStructSpanByteConstr2(int mandatory) : this()
-        {
-            Id = Guid.NewGuid();
-            Step1Result = null;
-            Step2Result = mandatory;
-        }
-
-        internal Guid Id;
-
-        // Guid 16 byte 128 bit unsigned integer representation
-        internal Span<byte> Step1Result;
-
-        // Sum of string representation of above Guid bytes
-        internal int Step2Result;
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct WorkStructByteArrayConstr
-    {
-        internal WorkStructByteArrayConstr(int mandatory)
-        {
-            Id = Guid.NewGuid();
-            Step1Result = null;
-            Step2Result = mandatory;
-        }
-
-        internal Guid Id;
-
-        // Guid 16 byte 128 bit unsigned integer representation
-        internal byte[] Step1Result;
-
-        // Sum of string representation of above Guid bytes
-        internal int Step2Result;
-    }
-
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public ref struct WorkStructByteArray
-    {
-        // Guid 16 byte 128 bit unsigned integer representation
-        public byte[] Step1Result;
-
-        // Sum of string representation of above Guid bytes
-        public int Step2Result;
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct WorkStructStatic
-    {
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 36)]
-        internal static string Step1Result;
-
-        [MarshalAs(UnmanagedType.U4, SizeConst = 3)]
-        internal static int Step2Result;
-    }
-
     public class Implementations
     {
         private const int ObjectTotal = 10000;
@@ -192,7 +35,7 @@ namespace TenKObjects
             CallingConvention = CallingConvention.StdCall, EntryPoint = "sumOfDigits")]
         public static extern int sumOfDigitsCharDll(char[] str);
 
-        private static string Sortstring(ReadOnlySpan<char> guid)
+        internal static string Sortstring(ReadOnlySpan<char> guid)
         {
             var sbBuffer = new StringBuilder(1);
             var uiRequiredSize = stringSortOut(sbBuffer, (uint) sbBuffer.Capacity, guid.ToString());
@@ -214,7 +57,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var work = new Work();
+                var work = new Obj.Work();
                 // Step 1 - Order the Id, and set on Step1Result property
                 work.Step1Result = Sortstring(work.Id.ToString());
                 // Step 2 - Sum all numbers in the Id, and set on Step2Result property
@@ -227,7 +70,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var work = new Work();
+                var work = new Obj.Work();
                 // Step 1 - Order the Id, and set on Step1Result property
                 work.Step1Result = Concat(work.Id.ToString().OrderBy(c => c));
                 // extract digits for use in Step 2, I opted not to use Regex, since in this scenario its slower than LINQ
@@ -242,7 +85,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var work = new Work();
+                var work = new Obj.Work();
                 var idchars = work.Id.ToString().ToCharArray();
                 Array.Sort(idchars);
                 // "Convert" it to writable Span<char>
@@ -261,7 +104,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var work = new Work();
+                var work = new Obj.Work();
                 var idchars = work.Id.ToString().ToCharArray();
                 Array.Sort(idchars);
                 // "Convert" it to writable Span<char>
@@ -278,7 +121,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var work = new Work();
+                var work = new Obj.Work();
                 var idchars = work.Id.ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
@@ -295,9 +138,9 @@ namespace TenKObjects
                 char[] idchars = Guid.NewGuid().ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
-                WorkStructStatic.Step1Result = new string(idchars);
+                Obj.WorkStructStatic.Step1Result = new string(idchars);
                 // Step 2 - Sum all numbers in the Id, and set on Step2Result property
-                WorkStructStatic.Step2Result = sumOfDigitsDll(WorkStructStatic.Step1Result);
+                Obj.WorkStructStatic.Step2Result = sumOfDigitsDll(Obj.WorkStructStatic.Step1Result);
             });
         }
 
@@ -306,7 +149,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStruct();
+                var wsArr = new Obj.WorkStruct();
                 char[] idchars = Guid.NewGuid().ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
@@ -320,7 +163,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                WorkStructCharArray wsArr = new WorkStructCharArray();
+                Obj.WorkStructCharArray wsArr = new Obj.WorkStructCharArray();
                 char[] idchars = Guid.NewGuid().ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
@@ -334,7 +177,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStruct();
+                var wsArr = new Obj.WorkStruct();
                 char[] idchars = Guid.NewGuid().ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
@@ -348,7 +191,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStruct();
+                var wsArr = new Obj.WorkStruct();
                 char[] idchars = Guid.NewGuid().ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
@@ -362,7 +205,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStruct();
+                var wsArr = new Obj.WorkStruct();
                 char[] idchars = Guid.NewGuid().ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
@@ -376,7 +219,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStruct();
+                var wsArr = new Obj.WorkStruct();
                 char[] idchars = Guid.NewGuid().ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
@@ -390,7 +233,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStruct();
+                var wsArr = new Obj.WorkStruct();
                 char[] idchars = Guid.NewGuid().ToString().ToCharArray();
                 Array.Sort(idchars);
                 // Step 1 - Order the Id, and set on Step1Result property
@@ -404,7 +247,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStructSpanChar();
+                var wsArr = new Obj.WorkStructSpanChar();
                 var buffer = SortCharArray(Guid.NewGuid().ToString().ToCharArray());
                 var data = stackalloc char[36];
                 var destination = new Span<char>(data, 36);
@@ -422,7 +265,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStructSpanByte();
+                var wsArr = new Obj.WorkStructSpanByte();
                 Span<byte> buffer = SortByteArray(Guid.NewGuid().ToByteArray());
                 // Step 1 - Order the Id(guid) byte representation, and set (Span<byte>) Step1Result property
                 wsArr.Step1Result = buffer;
@@ -435,7 +278,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStructSpanByte();
+                var wsArr = new Obj.WorkStructSpanByte();
                 Span<byte> buffer = SortByteArray(Guid.NewGuid().ToByteArray());
                 // Step 1 - Order the Id, and set on Step1Result property
                 wsArr.Step1Result = buffer;
@@ -448,7 +291,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStructSpanByte();
+                var wsArr = new Obj.WorkStructSpanByte();
                 Span<byte> buffer = SortByteArray(Guid.NewGuid().ToByteArray());
                 // Step 1 - Order the Id, and set on Step1Result property
                 wsArr.Step1Result = buffer;
@@ -463,7 +306,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                WorkStructByteArray wsArr;
+                Obj.WorkStructByteArray wsArr;
                 byte[] buffer = SortByteArray(Guid.NewGuid().ToByteArray());
                 // Step 1 - Order the Id, and set on Step1Result property
                 wsArr.Step1Result = buffer;
@@ -478,7 +321,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                WorkStructSpanByte wsArr;
+                Obj.WorkStructSpanByte wsArr;
                 // Step 1 - Order the Id, and set on Step1Result property
                 wsArr.Step1Result = SortByteArray(Guid.NewGuid().ToByteArray());
                 Span<int> numbers = stackalloc int[1];
@@ -500,7 +343,7 @@ namespace TenKObjects
             {
                 For(0, rangeSize, _ =>
                 {
-                    WorkStructSpanByte wsArr;
+                    Obj.WorkStructSpanByte wsArr;
                     // Step 1 - Order the Id, and set on Step1Result property
                     wsArr.Step1Result = SortByteArray(Guid.NewGuid().ToByteArray());
                     Span<int> numbers = stackalloc int[1];
@@ -515,7 +358,7 @@ namespace TenKObjects
         {
             For(0, n, _ =>
             {
-                WorkStructSpanByte wsArr;
+                Obj.WorkStructSpanByte wsArr;
                 // Step 1 - Order the Id, and set on Step1Result property
                 wsArr.Step1Result = SortGuidBytes(Guid.NewGuid());
                 // Step 2 - Sum all numbers in the Id, and set on Step2Result property
@@ -535,7 +378,7 @@ namespace TenKObjects
             {
                 For(0, rangeSize, _ =>
                 {
-                    WorkStructSpanByte wsArr;
+                    Obj.WorkStructSpanByte wsArr;
                     // Step 1 - Order the Id, and set on Step1Result property
                     wsArr.Step1Result = SortGuidBytes(Guid.NewGuid());
                     // Step 2 - Sum all numbers in the Id, and set on Step2Result property
@@ -543,7 +386,7 @@ namespace TenKObjects
                 });
             });
         }
-        
+
         public void Implementation23(int n)
         {
             int outer = 5000;
@@ -573,27 +416,27 @@ namespace TenKObjects
             {
                 for (int j = 0; j < inner; j++)
                 {
-                    new WorkStructSpanByteConstr(0);
+                    new Obj.WorkStructSpanByteConstr(0);
                 }
             });
         }
 
         public void Implementation24(int n)
         {
-            For(0, n, _ => { new WorkStructSpanByteConstr(0); });
+            For(0, n, _ => { new Obj.WorkStructSpanByteConstr(0); });
         }
 
         public void Implementation25(int n)
         {
             For(0, n, _ =>
             {
-                var wsArr = new WorkStructSpanByteConstr2(0);
+                var wsArr = new Obj.WorkStructSpanByteConstr2(0);
                 wsArr.Step1Result = SortGuidBytes(wsArr.Id);
                 wsArr.Step2Result = SumOfDigitsGuidBytes(wsArr.Step1Result);
             });
         }
 
-        public void Implementation26(WorkStruct[] list)
+        public void Implementation26(Obj.WorkStruct[] list)
         {
             ForEach(list, item =>
             {
@@ -603,7 +446,7 @@ namespace TenKObjects
             });
         }
 
-        public void Implementation27(WorkStructByteArrayConstr[] list)
+        public void Implementation27(Obj.WorkStructByteArrayConstr[] list)
         {
             ForEach(list, item =>
             {
@@ -612,7 +455,7 @@ namespace TenKObjects
             });
         }
 
-        public void Implementation28(WorkStructByteArrayConstr[] list)
+        public void Implementation28(Obj.WorkStructByteArrayConstr[] list)
         {
             switch (list.Length)
             {
@@ -640,7 +483,7 @@ namespace TenKObjects
             }
         }
 
-        public void Implementation29(WorkStructByteArrayConstr[] list)
+        public void Implementation29(Obj.WorkStructByteArrayConstr[] list)
         {
         }
 
@@ -803,6 +646,7 @@ namespace TenKObjects
 
             return sum;
         }
+
         private static int SumOfDigitsGuid2(in Guid bytes, int sum = 0)
         {
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
