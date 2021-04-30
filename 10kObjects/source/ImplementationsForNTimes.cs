@@ -918,7 +918,7 @@ namespace TenKObjects
                 }
             });
         }
-        
+
         public unsafe void Implementation37(WorkStructByteArrayConstrFinal[] list)
         {
             if (list.Length == 1)
@@ -941,7 +941,7 @@ namespace TenKObjects
                 }
             });
         }
-        
+
         public unsafe void Implementation38(WorkStructByteArrayConstrFinal[] list)
         {
             if (list.Length == 1)
@@ -961,6 +961,29 @@ namespace TenKObjects
                 {
                     item.Step1Result = SortByteArray(item.Id);
                     item.Step2Result = SumOfDigitsGuidP3Decompiled(dataPtr);
+                }
+            });
+        }
+
+        public unsafe void Implementation39(WorkStructByteArrayConstrFinal[] list)
+        {
+            if (list.Length == 1)
+            {
+                fixed (byte* dataPtr = &list[0].Id[0])
+                {
+                    list[0].Step1Result = SortByteArray(list[0].Id);
+                    list[0].Step2Result = SumOfDigitsGuidO(dataPtr);
+                }
+
+                return;
+            }
+
+            ForEach(list, item =>
+            {
+                fixed (byte* dataPtr = &item.Id[0])
+                {
+                    item.Step1Result = SortByteArray(item.Id);
+                    item.Step2Result = SumOfDigitsGuidO(dataPtr);
                 }
             });
         }

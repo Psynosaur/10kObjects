@@ -34,7 +34,7 @@ namespace TenKObjects
             [MarshalAs(UnmanagedType.U4, SizeConst = 3)]
             public int Step2Result;
         }
-        
+
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public ref struct WorkStructByteArray
         {
@@ -44,6 +44,7 @@ namespace TenKObjects
             // Sum of string representation of above Guid bytes
             internal int Step2Result;
         }
+
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct WorkStructByteArrayConstr
         {
@@ -62,6 +63,7 @@ namespace TenKObjects
             // Sum of string representation of above Guid bytes
             internal int Step2Result;
         }
+
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct WorkStructByteArrayConstrFinal
         {
@@ -80,6 +82,7 @@ namespace TenKObjects
             // Sum of string representation of above Guid bytes
             internal int Step2Result;
         }
+
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct WorkStructCharArray
         {
@@ -90,7 +93,7 @@ namespace TenKObjects
             public int Step2Result;
         }
 
-       [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public ref struct WorkStructSpanByte
         {
             // Guid 16 byte 128 bit unsigned integer representation
@@ -158,13 +161,14 @@ namespace TenKObjects
             // Sum of string representation of above Guid bytes
             internal int Step2Result;
         }
+
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public ref struct WorkStructSpanChar
         {
             public Span<char> Step1Result;
             public int Step2Result;
         }
-        
+
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct WorkStructStatic

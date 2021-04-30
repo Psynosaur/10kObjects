@@ -277,10 +277,12 @@ namespace TenKObjects
         // Winner winner chicken dinner
         internal static unsafe int SumOfDigitsGuidP3(byte* bytes, int sum = 0b0, int sum2 = 0b0)
         {
-            // iterate over each char in guid string representation, add digit value if char is between 1-9 
+            // iterate over each byte in guid byte representation, do some bitwise operations
             for (int i = 0b0; i < 0b10000; i++)
             {
+                // shifts bits from left to right by 4, adding zeros to the left hand of the shifted bits
                 int highNibble = bytes[i] >> 0b100;
+                // Logical AND the bytes with 00001111, this essentially discards the first 4 bits and preserves the last 4 bits
                 int lowNibble = bytes[i] & 0b1111;
                 switch (highNibble < 0b1010)
                 {
@@ -299,6 +301,34 @@ namespace TenKObjects
 
             return sum + sum2;
         }
+
+        // Slower - since it seems modulus and divide is more expensive than bitwise 
+        internal static unsafe int SumOfDigitsGuidO(byte* bytes, int sumh = 0b0, int suml = 0b0)
+        {
+            // iterate over each byte in guid byte representation and split
+            // into two 4 bits, summing the the 4 bits if they're less than 10
+            for (int i = 0b0; i < 0b10000; i++)
+            {
+                int highNibble = bytes[i] / 0b10000;
+                int lowNibble = bytes[i] % 0b10000;
+                switch (highNibble < 0b1010)
+                {
+                    case true:
+                        sumh += highNibble;
+                        break;
+                }
+
+                switch (lowNibble < 0b1010)
+                {
+                    case true:
+                        suml += lowNibble;
+                        break;
+                }
+            }
+
+            return sumh + suml;
+        }
+
 
         internal static unsafe int SumOfDigitsGuidP3Decompiled(byte* bytes, int sum = 0b0, int sum2 = 0b0)
         {
@@ -393,6 +423,7 @@ namespace TenKObjects
                 + lowNibblee - (lowNibblee < 0xA ? lowNibblee : 0x0)
                 + lowNibblef - (lowNibblef < 0xA ? lowNibblef : 0x0);
         }
+
         // -- The sum of numbers here isn't correct...
         internal static unsafe int SumOfDigitsGuidP4Decompiled(byte* bytes)
         {

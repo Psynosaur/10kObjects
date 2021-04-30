@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
@@ -14,7 +15,8 @@ namespace TenKObjects
                 DefaultConfig.Instance
                     // .AddHardwareCounters(
                     //     HardwareCounter.BranchMispredictions,
-                    //     HardwareCounter.BranchInstructions)
+                    //     HardwareCounter.BranchInstructions,
+                    //     HardwareCounter.Timer)
                     .AddJob(Job.Default.WithRuntime(CoreRuntime.Core50))
                     // .AddJob(Job.Default.WithRuntime(CoreRuntime.Core31))
                     .AddValidator(ExecutionValidator.FailOnError));
