@@ -9,6 +9,7 @@ namespace TenKObjects
     [MemoryDiagnoser]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
     [RankColumn]
+    [RPlotExporter]
     public class ImplementationBenchmarks
     {
         // Second version after reading benchmarkdotnet setup guides.

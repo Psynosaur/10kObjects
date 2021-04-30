@@ -275,21 +275,21 @@ namespace TenKObjects
         }
 
         // Winner winner chicken dinner
-        internal static unsafe int SumOfDigitsGuidP3(byte* bytes, int sum = 0, int sum2 = 0)
+        internal static unsafe int SumOfDigitsGuidP3(byte* bytes, int sum = 0b0, int sum2 = 0b0)
         {
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0b0; i < 0b10000; i++)
             {
-                int highNibble = bytes[i] >> 4;
-                int lowNibble = bytes[i] & 0x0f;
-                switch (highNibble < 10)
+                int highNibble = bytes[i] >> 0b100;
+                int lowNibble = bytes[i] & 0b1111;
+                switch (highNibble < 0b1010)
                 {
                     case true:
                         sum += highNibble;
                         break;
                 }
 
-                switch (lowNibble < 10)
+                switch (lowNibble < 0b1010)
                 {
                     case true:
                         sum2 += lowNibble;
@@ -393,7 +393,7 @@ namespace TenKObjects
                 + lowNibblee - (lowNibblee < 0xA ? lowNibblee : 0x0)
                 + lowNibblef - (lowNibblef < 0xA ? lowNibblef : 0x0);
         }
-
+        // -- The sum of numbers here isn't correct...
         internal static unsafe int SumOfDigitsGuidP4Decompiled(byte* bytes)
         {
             int num = *bytes >> 4;

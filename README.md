@@ -33,88 +33,75 @@ Simple right? . . . ¯\\\_(ツ)\_/¯
 
     // * Summary *
 
-    ======> Seems it could go faster
-    |           Method | N |     Mean |    Error |   StdDev | Rank | Gen 0 | Gen 1 | Gen 2 | Allocated |
-    |----------------- |-- |---------:|---------:|---------:|-----:|------:|------:|------:|----------:|
-    | Implementation38 | 1 | 35.66 ns | 0.488 ns | 0.457 ns |    1 |     - |     - |     - |         - |
-    | Implementation37 | 1 | 41.45 ns | 0.532 ns | 0.497 ns |    2 |     - |     - |     - |         - |
-
-
     BenchmarkDotNet=v0.12.1, OS=Windows 10.0.19042
     AMD Ryzen 9 3900X, 1 CPU, 24 logical and 12 physical cores
     .NET Core SDK=5.0.202
     [Host]     : .NET Core 5.0.5 (CoreCLR 5.0.521.16609, CoreFX 5.0.521.16609), X64 RyuJIT
-    Job-NAJKOX : .NET Core 5.0.5 (CoreCLR 5.0.521.16609, CoreFX 5.0.521.16609), X64 RyuJIT
+    Job-PWPYBZ : .NET Core 5.0.5 (CoreCLR 5.0.521.16609, CoreFX 5.0.521.16609), X64 RyuJIT
     
     Runtime=.NET Core 5.0
     
     |           Method | N |        Mean |     Error |    StdDev | Rank |  Gen 0 | Gen 1 | Gen 2 | Allocated |
     |----------------- |-- |------------:|----------:|----------:|-----:|-------:|------:|------:|----------:|
-    | Implementation37 | 1 |    41.85 ns |  0.275 ns |  0.257 ns |    1 |      - |     - |     - |         - |
-    | Implementation33 | 1 |    87.18 ns |  1.705 ns |  2.030 ns |    2 | 0.0048 |     - |     - |      40 B |
-    | Implementation34 | 1 |    94.80 ns |  1.543 ns |  1.443 ns |    3 | 0.0048 |     - |     - |      40 B |
-    | Implementation36 | 1 |    95.19 ns |  0.599 ns |  0.561 ns |    3 | 0.0048 |     - |     - |      40 B |
-    | Implementation35 | 1 |    99.19 ns |  0.948 ns |  0.886 ns |    4 | 0.0048 |     - |     - |      40 B |
-    | Implementation29 | 1 |   155.29 ns |  1.632 ns |  1.447 ns |    5 | 0.0162 |     - |     - |     136 B |
-    | Implementation28 | 1 |   155.63 ns |  1.380 ns |  1.291 ns |    5 | 0.0162 |     - |     - |     136 B |
-    | Implementation27 | 1 |   162.01 ns |  1.190 ns |  0.994 ns |    6 | 0.0210 |     - |     - |     176 B |
-    | Implementation30 | 1 |   168.32 ns |  0.663 ns |  0.621 ns |    7 | 0.0162 |     - |     - |     136 B |
-    | Implementation32 | 1 |   183.94 ns |  0.932 ns |  0.872 ns |    8 | 0.0162 |     - |     - |     136 B |
-    | Implementation31 | 1 |   202.05 ns |  2.505 ns |  2.343 ns |    9 | 0.0315 |     - |     - |     264 B |
-    | Implementation26 | 1 |   306.38 ns |  3.081 ns |  2.882 ns |   10 | 0.0324 |     - |     - |     272 B |
-    | Implementation21 | 1 |   419.42 ns |  2.181 ns |  2.040 ns |   11 | 0.0162 |     - |     - |     136 B |
-    | Implementation24 | 1 |   420.59 ns |  1.052 ns |  0.984 ns |   11 | 0.0162 |     - |     - |     136 B |
-    | Implementation15 | 1 |   421.91 ns |  2.192 ns |  1.830 ns |   11 | 0.0162 |     - |     - |     136 B |
-    | Implementation22 | 1 |   422.52 ns |  2.104 ns |  1.865 ns |   11 | 0.0191 |     - |     - |     160 B |
-    | Implementation23 | 1 |   423.56 ns |  1.369 ns |  1.214 ns |   11 | 0.0191 |     - |     - |     160 B |
-    | Implementation19 | 1 |   426.30 ns |  3.831 ns |  3.396 ns |   11 | 0.0162 |     - |     - |     136 B |
-    | Implementation18 | 1 |   426.37 ns |  1.129 ns |  0.943 ns |   11 | 0.0162 |     - |     - |     136 B |
-    | Implementation20 | 1 |   426.39 ns |  1.881 ns |  1.760 ns |   11 | 0.0191 |     - |     - |     160 B |
-    | Implementation17 | 1 |   427.43 ns |  1.529 ns |  1.356 ns |   11 | 0.0162 |     - |     - |     136 B |
-    | Implementation25 | 1 |   428.34 ns |  0.999 ns |  0.934 ns |   11 | 0.0162 |     - |     - |     136 B |
-    | Implementation16 | 1 |   522.99 ns |  1.095 ns |  0.855 ns |   12 | 0.0162 |     - |     - |     136 B |
-    | Implementation13 | 1 |   807.10 ns |  4.139 ns |  3.669 ns |   13 | 0.0343 |     - |     - |     288 B |
-    | Implementation10 | 1 |   807.41 ns |  2.624 ns |  2.326 ns |   13 | 0.0343 |     - |     - |     288 B |
-    | Implementation11 | 1 |   813.45 ns |  2.760 ns |  2.447 ns |   13 | 0.0343 |     - |     - |     288 B |
-    |  Implementation9 | 1 |   818.95 ns |  7.309 ns |  6.479 ns |   13 | 0.0458 |     - |     - |     384 B |
-    | Implementation12 | 1 |   820.46 ns | 16.275 ns | 15.984 ns |   13 | 0.0343 |     - |     - |     288 B |
-    |  Implementation5 | 1 |   859.34 ns |  2.096 ns |  1.636 ns |   14 | 0.0401 |     - |     - |     336 B |
-    |  Implementation7 | 1 |   909.90 ns |  3.235 ns |  3.026 ns |   15 | 0.0343 |     - |     - |     288 B |
-    |  Implementation6 | 1 |   916.29 ns |  2.756 ns |  2.443 ns |   15 | 0.0343 |     - |     - |     288 B |
-    | Implementation14 | 1 |   953.24 ns | 29.170 ns | 85.549 ns |   15 | 0.0229 |     - |     - |     192 B |
-    |  Implementation4 | 1 |   981.76 ns |  4.830 ns |  4.033 ns |   15 | 0.0553 |     - |     - |     464 B |
-    |  Implementation8 | 1 | 1,021.08 ns |  4.656 ns |  4.355 ns |   16 | 0.0229 |     - |     - |     192 B |
-    |  Implementation3 | 1 | 1,476.76 ns |  7.141 ns |  6.330 ns |   17 | 0.1068 |     - |     - |     900 B |
-    |  Implementation2 | 1 | 3,307.69 ns | 24.858 ns | 23.252 ns |   18 | 0.2022 |     - |     - |    1708 B |
-    |  Implementation1 | 1 | 4,774.20 ns | 17.347 ns | 15.378 ns |   19 | 0.0839 |     - |     - |     712 B |
-    
-    // * Warnings *
-    MultimodalDistribution
-    ImplementationBenchmarks.Implementation14: Runtime=.NET Core 5.0 -> It seems that the distribution is multimodal (mValue = 4.8)
+    | Implementation37 | 1 |    37.36 ns |  0.751 ns |  0.702 ns |    1 |      - |     - |     - |         - |
+    | Implementation38 | 1 |    38.83 ns |  0.608 ns |  0.569 ns |    2 |      - |     - |     - |         - |
+    | Implementation33 | 1 |    92.92 ns |  0.502 ns |  0.470 ns |    3 | 0.0048 |     - |     - |      40 B |
+    | Implementation34 | 1 |    94.21 ns |  0.852 ns |  0.797 ns |    3 | 0.0048 |     - |     - |      40 B |
+    | Implementation36 | 1 |    96.30 ns |  1.135 ns |  1.061 ns |    4 | 0.0048 |     - |     - |      40 B |
+    | Implementation35 | 1 |   111.55 ns |  0.498 ns |  0.466 ns |    5 | 0.0048 |     - |     - |      40 B |
+    | Implementation30 | 1 |   143.05 ns |  0.832 ns |  0.779 ns |    6 | 0.0162 |     - |     - |     136 B |
+    | Implementation32 | 1 |   147.83 ns |  1.180 ns |  1.046 ns |    7 | 0.0162 |     - |     - |     136 B |
+    | Implementation28 | 1 |   147.94 ns |  1.418 ns |  1.327 ns |    7 | 0.0162 |     - |     - |     136 B |
+    | Implementation29 | 1 |   149.59 ns |  1.538 ns |  1.439 ns |    7 | 0.0162 |     - |     - |     136 B |
+    | Implementation27 | 1 |   153.78 ns |  1.254 ns |  1.173 ns |    8 | 0.0210 |     - |     - |     176 B |
+    | Implementation31 | 1 |   197.42 ns |  1.242 ns |  1.161 ns |    9 | 0.0315 |     - |     - |     264 B |
+    | Implementation26 | 1 |   305.82 ns |  3.064 ns |  2.866 ns |   10 | 0.0324 |     - |     - |     272 B |
+    | Implementation21 | 1 |   403.53 ns |  1.690 ns |  1.581 ns |   11 | 0.0162 |     - |     - |     136 B |
+    | Implementation24 | 1 |   409.33 ns |  1.675 ns |  1.566 ns |   12 | 0.0162 |     - |     - |     136 B |
+    | Implementation25 | 1 |   410.08 ns |  0.696 ns |  0.651 ns |   12 | 0.0162 |     - |     - |     136 B |
+    | Implementation23 | 1 |   410.67 ns |  1.579 ns |  1.477 ns |   12 | 0.0191 |     - |     - |     160 B |
+    | Implementation22 | 1 |   411.06 ns |  1.536 ns |  1.361 ns |   12 | 0.0191 |     - |     - |     160 B |
+    | Implementation19 | 1 |   414.05 ns |  0.843 ns |  0.747 ns |   12 | 0.0162 |     - |     - |     136 B |
+    | Implementation15 | 1 |   415.91 ns |  1.613 ns |  1.509 ns |   12 | 0.0162 |     - |     - |     136 B |
+    | Implementation17 | 1 |   416.56 ns |  0.811 ns |  0.677 ns |   12 | 0.0162 |     - |     - |     136 B |
+    | Implementation20 | 1 |   418.33 ns |  1.652 ns |  1.545 ns |   12 | 0.0191 |     - |     - |     160 B |
+    | Implementation18 | 1 |   421.11 ns |  1.177 ns |  0.983 ns |   12 | 0.0162 |     - |     - |     136 B |
+    | Implementation16 | 1 |   516.90 ns |  1.410 ns |  1.177 ns |   13 | 0.0162 |     - |     - |     136 B |
+    | Implementation10 | 1 |   774.30 ns |  3.377 ns |  2.993 ns |   14 | 0.0343 |     - |     - |     288 B |
+    | Implementation12 | 1 |   784.70 ns |  3.463 ns |  3.239 ns |   15 | 0.0343 |     - |     - |     288 B |
+    | Implementation11 | 1 |   784.96 ns |  3.248 ns |  3.038 ns |   15 | 0.0343 |     - |     - |     288 B |
+    | Implementation14 | 1 |   794.28 ns |  2.266 ns |  2.120 ns |   15 | 0.0229 |     - |     - |     192 B |
+    |  Implementation9 | 1 |   795.14 ns |  2.098 ns |  1.963 ns |   15 | 0.0458 |     - |     - |     384 B |
+    | Implementation13 | 1 |   799.14 ns |  2.054 ns |  1.715 ns |   15 | 0.0343 |     - |     - |     288 B |
+    |  Implementation5 | 1 |   830.19 ns |  1.770 ns |  1.655 ns |   16 | 0.0401 |     - |     - |     336 B |
+    |  Implementation7 | 1 |   888.96 ns |  3.124 ns |  2.922 ns |   17 | 0.0343 |     - |     - |     288 B |
+    |  Implementation6 | 1 |   896.30 ns |  2.635 ns |  2.465 ns |   17 | 0.0343 |     - |     - |     288 B |
+    |  Implementation4 | 1 |   932.17 ns |  2.834 ns |  2.512 ns |   18 | 0.0553 |     - |     - |     464 B |
+    |  Implementation8 | 1 | 1,003.97 ns |  3.534 ns |  3.133 ns |   19 | 0.0229 |     - |     - |     192 B |
+    |  Implementation3 | 1 | 1,398.88 ns |  7.654 ns |  6.785 ns |   20 | 0.1068 |     - |     - |     900 B |
+    |  Implementation2 | 1 | 3,192.00 ns | 14.295 ns | 12.672 ns |   21 | 0.2022 |     - |     - |    1708 B |
+    |  Implementation1 | 1 | 4,715.46 ns | 11.060 ns |  9.804 ns |   22 | 0.0839 |     - |     - |     712 B |
     
     // * Hints *
     Outliers
-    ImplementationBenchmarks.Implementation33: Runtime=.NET Core 5.0 -> 1 outlier  was  detected (83.12 ns)
-    ImplementationBenchmarks.Implementation29: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (163.47 ns)
-    ImplementationBenchmarks.Implementation27: Runtime=.NET Core 5.0 -> 2 outliers were removed (166.88 ns, 167.47 ns)
-    ImplementationBenchmarks.Implementation15: Runtime=.NET Core 5.0 -> 2 outliers were removed (443.61 ns, 445.23 ns)
-    ImplementationBenchmarks.Implementation22: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (431.21 ns)
-    ImplementationBenchmarks.Implementation23: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (429.34 ns)
-    ImplementationBenchmarks.Implementation19: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (468.66 ns)
-    ImplementationBenchmarks.Implementation18: Runtime=.NET Core 5.0 -> 2 outliers were removed (431.62 ns, 445.87 ns)
-    ImplementationBenchmarks.Implementation17: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (441.51 ns)
-    ImplementationBenchmarks.Implementation25: Runtime=.NET Core 5.0 -> 1 outlier  was  detected (428.28 ns)
-    ImplementationBenchmarks.Implementation16: Runtime=.NET Core 5.0 -> 3 outliers were removed, 4 outliers were detected (522.69 ns, 528.38 ns..528.76 ns)
-    ImplementationBenchmarks.Implementation13: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (821.12 ns)
-    ImplementationBenchmarks.Implementation10: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (816.80 ns)
-    ImplementationBenchmarks.Implementation11: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (840.54 ns)
-    ImplementationBenchmarks.Implementation9: Runtime=.NET Core 5.0  -> 1 outlier  was  removed (842.62 ns)
-    ImplementationBenchmarks.Implementation5: Runtime=.NET Core 5.0  -> 3 outliers were removed, 5 outliers were detected (858.32 ns, 858.34 ns, 867.40 ns..872.12 ns)
-    ImplementationBenchmarks.Implementation6: Runtime=.NET Core 5.0  -> 1 outlier  was  removed (931.47 ns)
-    ImplementationBenchmarks.Implementation14: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (1.26 us)
-    ImplementationBenchmarks.Implementation4: Runtime=.NET Core 5.0  -> 2 outliers were removed (1.04 us, 1.06 us)
-    ImplementationBenchmarks.Implementation3: Runtime=.NET Core 5.0  -> 1 outlier  was  removed (1.50 us)
-    ImplementationBenchmarks.Implementation1: Runtime=.NET Core 5.0  -> 1 outlier  was  removed (4.99 us)
+    ImplementationBenchmarks.Implementation35: Runtime=.NET Core 5.0 -> 1 outlier  was  detected (112.42 ns)
+    ImplementationBenchmarks.Implementation32: Runtime=.NET Core 5.0 -> 1 outlier  was  removed, 2 outliers were detected (147.21 ns, 153.05 ns)
+    ImplementationBenchmarks.Implementation29: Runtime=.NET Core 5.0 -> 1 outlier  was  detected (147.65 ns)
+    ImplementationBenchmarks.Implementation25: Runtime=.NET Core 5.0 -> 1 outlier  was  detected (410.49 ns)
+    ImplementationBenchmarks.Implementation22: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (417.67 ns)
+    ImplementationBenchmarks.Implementation19: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (420.69 ns)
+    ImplementationBenchmarks.Implementation17: Runtime=.NET Core 5.0 -> 2 outliers were removed (422.60 ns, 423.52 ns)
+    ImplementationBenchmarks.Implementation18: Runtime=.NET Core 5.0 -> 2 outliers were removed (425.56 ns, 425.95 ns)
+    ImplementationBenchmarks.Implementation16: Runtime=.NET Core 5.0 -> 2 outliers were removed (526.52 ns, 526.76 ns)
+    ImplementationBenchmarks.Implementation10: Runtime=.NET Core 5.0 -> 1 outlier  was  removed (788.03 ns)
+    ImplementationBenchmarks.Implementation14: Runtime=.NET Core 5.0 -> 2 outliers were detected (791.70 ns, 792.35 ns)
+    ImplementationBenchmarks.Implementation13: Runtime=.NET Core 5.0 -> 2 outliers were removed, 3 outliers were detected (796.47 ns, 806.83 ns, 810.67 ns)
+    ImplementationBenchmarks.Implementation6: Runtime=.NET Core 5.0  -> 1 outlier  was  detected (893.44 ns)
+    ImplementationBenchmarks.Implementation4: Runtime=.NET Core 5.0  -> 1 outlier  was  removed (944.95 ns)
+    ImplementationBenchmarks.Implementation8: Runtime=.NET Core 5.0  -> 1 outlier  was  removed, 2 outliers were detected (998.20 ns, 1.01 μs)
+    ImplementationBenchmarks.Implementation3: Runtime=.NET Core 5.0  -> 1 outlier  was  removed (1.42 μs)
+    ImplementationBenchmarks.Implementation2: Runtime=.NET Core 5.0  -> 1 outlier  was  removed (3.25 μs)
+    ImplementationBenchmarks.Implementation1: Runtime=.NET Core 5.0  -> 1 outlier  was  removed (4.76 μs)
     
     // * Legends *
     N         : Value of the 'N' parameter
@@ -127,6 +114,7 @@ Simple right? . . . ¯\\\_(ツ)\_/¯
     Gen 2     : GC Generation 2 collects per 1000 operations
     Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
     1 ns      : 1 Nanosecond (0.000000001 sec)
+
 
 
 
