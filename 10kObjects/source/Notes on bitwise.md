@@ -1,9 +1,12 @@
 #### A sample GUID
 `cd26ccf6-75d6-4521-884f-1693c62ed303`
+
 Shifts bits from left to right by 4, adding zeros to the left hand of the shifted bits
 `int highNibble = bytes[i] >> 0b100;`
+
 Logical AND the bytes with 00001111, this essentially discards the first 4 bits and preserves the last 4 bits
 `int lowNibble = bytes[i] & 0b1111;`
+
 Add highNibble or lowNibble to the sum if they are <10
 
 #### Breaking down step by step foreach byte in our array
