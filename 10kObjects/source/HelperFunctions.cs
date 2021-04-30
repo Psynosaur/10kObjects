@@ -305,16 +305,16 @@ namespace TenKObjects
             int num = 0b0;
             while (num < 0b10000)
             {
-                int num2 = bytes[num] >> 0b100;
-                int num3 = bytes[num] & 0b1111;
-                if (num2 < 0b1010)
+                int highNibble = bytes[num] >> 0b100;
+                int lowNibble = bytes[num] & 0b1111;
+                if (highNibble < 0b1010)
                 {
-                    sum += num2;
+                    sum += highNibble;
                 }
 
-                if (num3 < 0b1010)
+                if (lowNibble < 0b1010)
                 {
-                    sum2 += num3;
+                    sum2 += lowNibble;
                 }
 
                 num++;
@@ -323,7 +323,7 @@ namespace TenKObjects
             return sum + sum2;
         }
 
-        // Sorcery !? 
+        // Sorcery !? -- The sum of numbers here isn't correct...
         internal static unsafe int SumOfDigitsGuidP4(byte* bytes)
         {
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
