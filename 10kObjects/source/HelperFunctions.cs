@@ -63,18 +63,18 @@ namespace TenKObjects
             return buffer;
         }
 
-        internal static Span<char> SortSpanChar(Span<char> buffer, char temp = '0')
+        internal static Span<char> SortSpanChar(Span<char> buffer)
         {
-            int i, j;
+            int i;
             int n = buffer.Length;
-
             for (i = 0; i < n - 1; i++)
             {
+                int j;
                 for (j = i + 1; j < n; j++)
                 {
                     if (buffer[i] > buffer[j])
                     {
-                        temp = buffer[i];
+                        char temp = buffer[i];
                         buffer[i] = buffer[j];
                         buffer[j] = temp;
                     }
@@ -245,7 +245,59 @@ namespace TenKObjects
             return sum;
         }
 
-        // I phoned a friend, and he gave me the following few functions :D
+        // Slower - since it seems modulus and divide is more expensive than bitwise 
+        // https://stackoverflow.com/questions/42075537/c-sharp-4-bit-data-type
+        internal static unsafe int SumOfDigitsGuidO(byte* bytes, int sumh = 0b0, int suml = 0b0)
+        {
+            // iterate over each byte in guid byte representation and split
+            // into two 4 bits, summing the the 4 bits if they're less than 10
+            for (int i = 0b0; i < 0b10000; i++)
+            {
+                int highNibble = bytes[i] / 0b10000;
+                int lowNibble = bytes[i] % 0b10000;
+                switch (highNibble < 0b1010)
+                {
+                    case true:
+                        sumh += highNibble;
+                        break;
+                }
+
+                switch (lowNibble < 0b1010)
+                {
+                    case true:
+                        suml += lowNibble;
+                        break;
+                }
+            }
+
+            return sumh + suml;
+        }
+
+        internal static unsafe int SumOfDigitsGuidO2(byte* bytes, int sum = 0)
+        {
+            // iterate over each byte in guid byte representation, do some bitwise operations
+            for (int i = 0; i <= 15; i++)
+            {
+                int highNibble = (byte)(bytes[i] >> 4);
+                switch (highNibble < 10)
+                {
+                    case true:
+                        sum += highNibble;
+                        break;
+                }
+
+                int lowNibble = (byte)(bytes[i] & 0b1111);
+                switch (lowNibble < 10)
+                {
+                    case true:
+                        sum += lowNibble;
+                        break;
+                }
+            }
+
+            return sum;
+        }
+
         internal static unsafe int SumOfDigitsGuidP(byte* bytes, int sum = 0)
         {
             // iterate over each char in guid string representation, add digit value if char is between 1-9 
@@ -274,7 +326,7 @@ namespace TenKObjects
             return sum - counter;
         }
 
-        // Winner winner chicken dinner
+        // Winner winner chicken dinner, see 'Notes on bitwise.md' for a breakdown
         internal static unsafe int SumOfDigitsGuidP3(byte* bytes, int sum = 0b0, int sum2 = 0b0)
         {
             // iterate over each byte in guid byte representation, do some bitwise operations
@@ -301,34 +353,6 @@ namespace TenKObjects
 
             return sum + sum2;
         }
-
-        // Slower - since it seems modulus and divide is more expensive than bitwise 
-        internal static unsafe int SumOfDigitsGuidO(byte* bytes, int sumh = 0b0, int suml = 0b0)
-        {
-            // iterate over each byte in guid byte representation and split
-            // into two 4 bits, summing the the 4 bits if they're less than 10
-            for (int i = 0b0; i < 0b10000; i++)
-            {
-                int highNibble = bytes[i] / 0b10000;
-                int lowNibble = bytes[i] % 0b10000;
-                switch (highNibble < 0b1010)
-                {
-                    case true:
-                        sumh += highNibble;
-                        break;
-                }
-
-                switch (lowNibble < 0b1010)
-                {
-                    case true:
-                        suml += lowNibble;
-                        break;
-                }
-            }
-
-            return sumh + suml;
-        }
-
 
         internal static unsafe int SumOfDigitsGuidP3Decompiled(byte* bytes, int sum = 0b0, int sum2 = 0b0)
         {
