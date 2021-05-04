@@ -4,8 +4,9 @@
         <OutputType>Exe</OutputType>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Nullable>disable</Nullable>
-        <LangVersion>9</LangVersion>
+        <LangVersion>9.0</LangVersion>
         <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
+        <StartupObject>TenKObjects.Program</StartupObject>
     </PropertyGroup>
 
     <ItemGroup>

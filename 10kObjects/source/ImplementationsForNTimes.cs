@@ -1011,5 +1011,25 @@ namespace TenKObjects
                 }
             });
         }
+        public unsafe void Implementation41(WorkStructByteArrayConstrSorterFinal[] list)
+        {
+            if (list.Length == 1)
+            {
+                fixed (byte* dataPtr = &list[0].Step1Result[0])
+                {
+                    list[0].Step2Result = SumOfDigitsGuidO3(dataPtr);
+                }
+
+                return;
+            }
+
+            ForEach(list, item =>
+            {
+                fixed (byte* dataPtr = &item.Step1Result[0])
+                {
+                    item.Step2Result = SumOfDigitsGuidO3(dataPtr);
+                }
+            });
+        }
     }
 }

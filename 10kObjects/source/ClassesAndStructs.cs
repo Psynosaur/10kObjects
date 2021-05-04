@@ -82,6 +82,28 @@ namespace TenKObjects
             // Sum of string representation of above Guid bytes
             internal int Step2Result;
         }
+        
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public struct WorkStructByteArrayConstrSorterFinal
+        {
+            internal WorkStructByteArrayConstrSorterFinal(int mandatory)
+            {
+                Id = Guid.NewGuid().ToByteArray();
+                Step1Result = new byte[]
+                    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+                Array.Copy(Id, Step1Result, 16);
+                Array.Sort(Step1Result);
+                Step2Result = mandatory;
+            }
+
+            internal byte[] Id;
+
+            // Guid 16 byte 128 bit unsigned integer representation
+            internal byte[] Step1Result;
+
+            // Sum of string representation of above Guid bytes
+            internal int Step2Result;
+        }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct WorkStructCharArray

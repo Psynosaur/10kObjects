@@ -19,6 +19,7 @@ namespace TenKObjects
         private WorkStruct[] _list;
         private WorkStructByteArrayConstr[] _list2, _list3, _list4, _list5, _list6, _list7, _list8, _list9, _list10;
         private WorkStructByteArrayConstrFinal[] _list11, _list12, _list13,_list14;
+        private WorkStructByteArrayConstrSorterFinal[] _list15;
         private Work[] _work;
 
         [GlobalSetup]
@@ -39,6 +40,7 @@ namespace TenKObjects
             _list12 = WorkStructArrayMaker3(N);
             _list13 = WorkStructArrayMaker3(N);
             _list14 = WorkStructArrayMaker3(N);
+            _list15 = WorkStructArrayMaker4(N);
             _work = WorkClassArrayMaker(N);
         }
 
@@ -281,6 +283,12 @@ namespace TenKObjects
         {
             Implimentor.Implementation40(_list14);
         }
+        
+        [Benchmark]
+        public void Implementation41()
+        {
+            Implimentor.Implementation41(_list15);
+        }
 
         private static WorkStruct[] WorkStructArrayMaker(int n)
         {
@@ -305,6 +313,13 @@ namespace TenKObjects
         {
             WorkStructByteArrayConstrFinal[] arr = new WorkStructByteArrayConstrFinal[n];
             For(0, n, i => { arr[i] = new WorkStructByteArrayConstrFinal(0); });
+
+            return arr;
+        }
+        private static WorkStructByteArrayConstrSorterFinal[] WorkStructArrayMaker4(int n)
+        {
+            WorkStructByteArrayConstrSorterFinal[] arr = new WorkStructByteArrayConstrSorterFinal[n];
+            For(0, n, i => { arr[i] = new WorkStructByteArrayConstrSorterFinal(0); });
 
             return arr;
         }

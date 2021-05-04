@@ -297,6 +297,26 @@ namespace TenKObjects
 
             return sum;
         }
+        
+        internal static unsafe int SumOfDigitsGuidO3(byte* bytes, int sum = 0)
+        {
+            // iterate over each byte in guid byte representation, do some bitwise operations
+            int num = 0;
+            while (num <= 15)
+            {
+                if (bytes[num] >> 4 < 10)
+                {
+                    sum += bytes[num] >> 4;
+                }
+                if ((bytes[num] & 0xF) < 10)
+                {
+                    sum += bytes[num] & 0xF;
+                }
+                num++;
+            }
+
+            return sum;
+        }
 
         internal static unsafe int SumOfDigitsGuidP(byte* bytes, int sum = 0)
         {
